@@ -17,7 +17,7 @@
             padding: 10px 0;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
+            position: absolute;
             width: 100%;
             top: 0;
             z-index: 10;
@@ -32,13 +32,13 @@
         }
         .index-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
         }
         .index-container a {
             margin: 0 10px;
             text-decoration: none;
-            color: white;
-            font-size: 14px;
+            color: black;
+            font-size: 16px;
         }
         .index-container a:hover {
             text-decoration: underline;
@@ -47,6 +47,8 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            padding-top: 70px; /* Add padding-top to avoid clipping by the index container */
+
         }
         .caption {
             font-size: 20px;
@@ -65,12 +67,13 @@
         .row:nth-child(even) {
             background-color: #f2f2f2;
         }
+        
         .fixed-index {
-    position: fixed;
-    top: 70px; /* adjust this value to position it under the title */
+    position: sticky;
+    top: 20px; /* adjust this value to position it under the title */
     left: 0;
     width: 100%;
-    background-color: #4CAF50;
+    background-color: white;
     color: white;
     padding: 10px 0;
     text-align: center;
