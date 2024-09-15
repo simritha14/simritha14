@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            overflow-x: hidden;
         }
         header {
             background-color: #4CAF50;
@@ -18,102 +17,86 @@
             padding: 10px 0;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
         }
         .container {
             max-width: 1000px;
-            margin: auto;
+            margin: 80px auto;
+            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow-y: scroll;
-            height: 100vh; /* Adjust to fit the viewport height */
+        }
+        .index-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .index-container a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+        }
+        .index-container a:hover {
+            text-decoration: underline;
         }
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        .table .header {
-            background-color: #4CAF50;
-            color: white;
-            display: flex;
-        }
-        .table .header div {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
+        .caption {
+            font-size: 20px;
+            margin: 20px 0;
             font-weight: bold;
         }
-        .table .row {
+        .row {
             display: flex;
         }
-        .table .row:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .table .row div {
+        .row div {
             flex: 1;
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
         }
-        .caption {
-            font-size: 20px;
-            margin: 10px 0;
-            font-weight: bold;
+        .row:nth-child(even) {
+            background-color: #f2f2f2;
         }
-        .meaning {
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-        .index-container {
-            position: fixed;
-            top: 50px; /* Adjust to fit below the header */
-            right: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000; /* Make sure it stays above other content */
-            overflow-y: auto;
-            max-height: 90vh; /* Adjust to fit the viewport height */
-            width: 50px;
-        }
-        .index-container a {
-            display: block;
-            text-decoration: none;
-            color: #333;
-            padding: 5px;
-            text-align: center;
-        }
-        .index-container a:hover {
-            background-color: #f4f4f4;
-        }
-        .letter {
-            font-weight: bold;
-            margin: 10px 0;
-        }
+        .fixed-index {
+    position: fixed;
+    top: 70px; /* adjust this value to position it under the title */
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>French Verbs Conjugation</h1>
-    </header>
+<header>
+    <h1>French Verbs Conjugation</h1>
+</header>
 
-    <div class="container" id="tables-container">
-        <!-- Tables will be injected here by JavaScript -->
-    </div>
-
-    <div class="index-container" id="index-container">
-        <!-- Index letters will be injected here by JavaScript -->
+<div class="container">
+    <div id="index-container" class="index-container fixed-index">
+        <!-- Alphabetical Index will be added here -->
     </div>
     
+    <div id="tables-container">
+        <!-- Verb tables will be injected here by JavaScript -->
+    </div>
+</div>
 
-    <script>
-        const verbs = {
-            // Verb data with meaning and conjugations
+<script>
+    const verbs = {
             "Acheter": { "meaning": "to buy", "Je": "achète", "Tu": "achètes", "Il/Elle": "achète", "Nous": "achetons", "Vous": "achetez", "Ils/Elles": "achètent" },
             "Aller": { "meaning": "to go", "Je": "vais", "Tu": "vas", "Il/Elle": "va", "Nous": "allons", "Vous": "allez", "Ils/Elles": "vont" },
             "Appeler": { "meaning": "to call", "Je": "appelle", "Tu": "appelles", "Il/Elle": "appelle", "Nous": "appelons", "Vous": "appelez", "Ils/Elles": "appellent" },
@@ -133,67 +116,76 @@
             "Pouvoir": { "meaning": "to be able to", "Je": "peux", "Tu": "peux", "Il/Elle": "peut", "Nous": "pouvons", "Vous": "pouvez", "Ils/Elles": "peuvent" },
             "Savoir": { "meaning": "to know (facts/information)", "Je": "sais", "Tu": "sais", "Il/Elle": "sait", "Nous": "savons", "Vous": "savez", "Ils/Elles": "savent" },
             "Venir": { "meaning": "to come", "Je": "viens", "Tu": "viens", "Il/Elle": "vient", "Nous": "venons", "Vous": "venez", "Ils/Elles": "viennent" }
-        };
+       
+    };
 
-        function generateTable(verb, data) {
-            let tableHtml = `
-                <div class="table" id="${verb}">
-                    <div class="caption">
-                        ${verb} <span class="meaning">(${data.meaning})</span>
-                    </div>
-                    <div class="header">
-                        <div>Pronoun</div>
-                        <div>Conjugation</div>
+    function generateTable(verb, data) {
+        let tableHtml = `
+            <div id="${verb.charAt(0).toUpperCase()}" class="table">
+                <div class="caption">${verb} <span class="meaning">(${data.meaning})</span></div>
+                <div class="row">
+                    <div>Pronoun</div>
+                    <div>Conjugation</div>
+                </div>`;
+        for (const [pronoun, conjugation] of Object.entries(data)) {
+            if (pronoun !== 'meaning') {
+                tableHtml += `
+                    <div class="row">
+                        <div>${pronoun}</div><div>${conjugation}</div>
                     </div>`;
-            for (const [pronoun, conjugation] of Object.entries(data)) {
-                if (pronoun !== 'meaning') {
-                    tableHtml += `
-                        <div class="row">
-                            <div>${pronoun}</div><div>${conjugation}</div>
-                        </div>`;
-                }
             }
-            tableHtml += `</div>`;
-            return tableHtml;
         }
+        tableHtml += `</div>`;
+        return tableHtml;
+    }
 
-        function renderTables() {
-            const container = document.getElementById('tables-container');
-            const indexContainer = document.getElementById('index-container');
-            let htmlContent = '';
-            let letters = new Set();
-            for (const verb in verbs) {
-                const firstLetter = verb.charAt(0).toUpperCase();
-                letters.add(firstLetter);
-                htmlContent += generateTable(verb, verbs[verb]);
+ function renderTables() {
+    const container = document.getElementById('tables-container');
+    let htmlContent = '';
+    let letters = new Set();
+
+    for (const verb in verbs) {
+        const firstLetter = verb.charAt(0).toUpperCase();
+        letters.add(firstLetter);
+        htmlContent += generateTable(verb, verbs[verb]);
+    }
+    container.innerHTML = htmlContent;
+
+    // Render the alphabet links
+    const indexContainer = document.getElementById('index-container');
+    let indexHtml = '';
+    for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+        if (letters.has(letter)) {
+            indexHtml += `<a href="#${letter}" class="alphabet-link">${letter}</a>`;
+        }
+    }
+    indexContainer.innerHTML = indexHtml;
+
+    // Add event listener to alphabet links
+    const alphabetLinks = document.querySelectorAll('.alphabet-link');
+    alphabetLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const letter = link.textContent;
+            const tables = document.querySelectorAll(`.table[id^="${letter}"]`);
+            if (tables.length > 0) {
+                tables[0].scrollIntoView({ behavior: 'smooth' });
+                
             }
-            container.innerHTML = htmlContent;
+        });
+    });
 
-            let indexHtml = '';
-            for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
-                if (letters.has(letter)) {
-                    indexHtml += `<a href="#${letter}">${letter}</a>`;
-                }
-            }
-            indexContainer.innerHTML = indexHtml;
-        }
+    // Add event listener to up arrow link
+    const upArrowLink = document.querySelector('.up-arrow');
+    upArrowLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+}
 
-        function addSectionAnchors() {
-            const container = document.getElementById('tables-container');
-            let currentLetter = '';
-            container.innerHTML = container.innerHTML.replace(/<div class="caption">([^<]+)<\/div>/g, (match, p1) => {
-                const firstLetter = p1.charAt(0).toUpperCase();
-                if (firstLetter !== currentLetter) {
-                    currentLetter = firstLetter;
-                    return `<div id="${firstLetter}" class="caption">${match.substring(15)}`;
-                }
-                return match;
-            });
-        }
-
-        renderTables();
-        addSectionAnchors();
-    </script>
+renderTables();
+</script>
 
 </body>
 </html>
