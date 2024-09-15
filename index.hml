@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Verbs Conjugation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow-y: scroll;
+            height: 100vh; /* Adjust to fit the viewport height */
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table .header {
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+        }
+        .table .header div {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .table .row {
+            display: flex;
+        }
+        .table .row:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table .row div {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .caption {
+            font-size: 20px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .meaning {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .index-container {
+            position: fixed;
+            top: 50px; /* Adjust to fit below the header */
+            right: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000; /* Make sure it stays above other content */
+            overflow-y: auto;
+            max-height: 90vh; /* Adjust to fit the viewport height */
+            width: 50px;
+        }
+        .index-container a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 5px;
+            text-align: center;
+        }
+        .index-container a:hover {
+            background-color: #f4f4f4;
+        }
+        .letter {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>French Verbs Conjugation</h1>
+    </header>
+
+    <div class="container" id="tables-container">
+        <!-- Tables will be injected here by JavaScript -->
+    </div>
+
+    <div class="index-container" id="index-container">
+        <!-- Index letters will be injected here by JavaScript -->
+    </div>
+    
+
+    <script>
+        const verbs = {
+            // Verb data with meaning and conjugations
+            "Acheter": { "meaning": "to buy", "Je": "achète", "Tu": "achètes", "Il/Elle": "achète", "Nous": "achetons", "Vous": "achetez", "Ils/Elles": "achètent" },
+            "Aller": { "meaning": "to go", "Je": "vais", "Tu": "vas", "Il/Elle": "va", "Nous": "allons", "Vous": "allez", "Ils/Elles": "vont" },
+            "Appeler": { "meaning": "to call", "Je": "appelle", "Tu": "appelles", "Il/Elle": "appelle", "Nous": "appelons", "Vous": "appelez", "Ils/Elles": "appellent" },
+            "Assaillir": { "meaning": "to assail", "Je": "assaille", "Tu": "assaillis", "Il/Elle": "assaille", "Nous": "assaillons", "Vous": "assaillissez", "Ils/Elles": "assaillent" },
+            "Avoir": { "meaning": "to have", "Je": "ai", "Tu": "as", "Il/Elle": "a", "Nous": "avons", "Vous": "avez", "Ils/Elles": "ont" },
+            "Battre": { "meaning": "to fight", "Je": "bats", "Tu": "bats", "Il/Elle": "bat", "Nous": "battons", "Vous": "battez", "Ils/Elles": "battent" },
+            "Boire": { "meaning": "to drink", "Je": "bois", "Tu": "bois", "Il/Elle": "boit", "Nous": "buvons", "Vous": "buvez", "Ils/Elles": "boivent" },
+            "Clore": { "meaning": "to close", "Je": "clôt", "Tu": "clôts", "Il/Elle": "clôt", "Nous": "closons", "Vous": "closes", "Ils/Elles": "clôtent" },
+            "Commencer": { "meaning": "to begin", "Je": "commence", "Tu": "commences", "Il/Elle": "commence", "Nous": "commençons", "Vous": "commencez", "Ils/Elles": "commencent" },
+            "Conclure": { "meaning": "to conclude", "Je": "conclus", "Tu": "conclus", "Il/Elle": "conclut", "Nous": "concluons", "Vous": "concluez", "Ils/Elles": "concluent" },
+            "Conduire": { "meaning": "to drive/lead", "Je": "conduis", "Tu": "conduis", "Il/Elle": "conduit", "Nous": "conduisons", "Vous": "conduisez", "Ils/Elles": "conduisent" },
+            "Confire": { "meaning": "to crystallize", "Je": "confits", "Tu": "confits", "Il/Elle": "confits", "Nous": "confisons", "Vous": "confisez", "Ils/Elles": "confisent" },
+            "Connaître": { "meaning": "to know (people/places)", "Je": "connais", "Tu": "connais", "Il/Elle": "connaît", "Nous": "connaissons", "Vous": "connaissez", "Ils/Elles": "connaissent" },
+            "Dire": { "meaning": "to say", "Je": "dis", "Tu": "dis", "Il/Elle": "dit", "Nous": "disons", "Vous": "dites", "Ils/Elles": "disent" },
+            "Être": { "meaning": "to be", "Je": "suis", "Tu": "es", "Il/Elle": "est", "Nous": "sommes", "Vous": "êtes", "Ils/Elles": "sont" },
+            "Prendre": { "meaning": "to take", "Je": "prends", "Tu": "prends", "Il/Elle": "prend", "Nous": "prenons", "Vous": "prenez", "Ils/Elles": "prennent" },
+            "Pouvoir": { "meaning": "to be able to", "Je": "peux", "Tu": "peux", "Il/Elle": "peut", "Nous": "pouvons", "Vous": "pouvez", "Ils/Elles": "peuvent" },
+            "Savoir": { "meaning": "to know (facts/information)", "Je": "sais", "Tu": "sais", "Il/Elle": "sait", "Nous": "savons", "Vous": "savez", "Ils/Elles": "savent" },
+            "Venir": { "meaning": "to come", "Je": "viens", "Tu": "viens", "Il/Elle": "vient", "Nous": "venons", "Vous": "venez", "Ils/Elles": "viennent" }
+        };
+
+        function generateTable(verb, data) {
+            let tableHtml = `
+                <div class="table" id="${verb}">
+                    <div class="caption">
+                        ${verb} <span class="meaning">(${data.meaning})</span>
+                    </div>
+                    <div class="header">
+                        <div>Pronoun</div>
+                        <div>Conjugation</div>
+                    </div>`;
+            for (const [pronoun, conjugation] of Object.entries(data)) {
+                if (pronoun !== 'meaning') {
+                    tableHtml += `
+                        <div class="row">
+                            <div>${pronoun}</div><div>${conjugation}</div>
+                        </div>`;
+                }
+            }
+            tableHtml += `</div>`;
+            return tableHtml;
+        }
+
+        function renderTables() {
+            const container = document.getElementById('tables-container');
+            const indexContainer = document.getElementById('index-container');
+            let htmlContent = '';
+            let letters = new Set();
+            for (const verb in verbs) {
+                const firstLetter = verb.charAt(0).toUpperCase();
+                letters.add(firstLetter);
+                htmlContent += generateTable(verb, verbs[verb]);
+            }
+            container.innerHTML = htmlContent;
+
+            let indexHtml = '';
+            for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+                if (letters.has(letter)) {
+                    indexHtml += `<a href="#${letter}">${letter}</a>`;
+                }
+            }
+            indexContainer.innerHTML = indexHtml;
+        }
+
+        function addSectionAnchors() {
+            const container = document.getElementById('tables-container');
+            let currentLetter = '';
+            container.innerHTML = container.innerHTML.replace(/<div class="caption">([^<]+)<\/div>/g, (match, p1) => {
+                const firstLetter = p1.charAt(0).toUpperCase();
+                if (firstLetter !== currentLetter) {
+                    currentLetter = firstLetter;
+                    return `<div id="${firstLetter}" class="caption">${match.substring(15)}`;
+                }
+                return match;
+            });
+        }
+
+        renderTables();
+        addSectionAnchors();
+    </script>
+
+</body>
+</html>
