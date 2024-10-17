@@ -3,192 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>French Verbs Conjugation</title>
+    <title>Contact Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            margin: 40px;
         }
-        header {
-            background-color: #4CAF50;
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
             color: white;
-            padding: 10px 0;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            width: 100%;
-            top: 0;
-            z-index: 10;
+            border: none;
+            cursor: pointer;
         }
-        .container {
-            max-width: 1000px;
-            margin: 80px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        button:hover {
+            background-color: #218838;
         }
-        .index-container {
-            text-align: center;
-            margin-bottom: 0px;
-        }
-        .index-container a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: black;
-            font-size: 16px;
-        }
-        .index-container a:hover {
-            text-decoration: underline;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            padding-top: 70px; /* Add padding-top to avoid clipping by the index container */
-
-        }
-        .caption {
-            font-size: 20px;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-        .row {
-            display: flex;
-        }
-        .row div {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        .row:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        
-        .fixed-index {
-    position: sticky;
-    top: 20px; /* adjust this value to position it under the title */
-    left: 0;
-    width: 100%;
-    background-color: white;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
     </style>
 </head>
 <body>
 
-<header>
-    <h1>French Verbs Conjugation</h1>
-</header>
+    <h2>Contact Us</h2>
+    <p>Fill out the form below and we'll get back to you shortly.</p>
 
-<div class="container">
-    <div id="index-container" class="index-container fixed-index">
-        <!-- Alphabetical Index will be added here -->
-    </div>
-    
-    <div id="tables-container">
-        <!-- Verb tables will be injected here by JavaScript -->
-    </div>
-</div>
+    <form action="https://formsubmit.co/amandadrew14700@gmail.com" method="POST">
+        <!-- Name Field -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
 
-<script>
-    const verbs = {
-            "Acheter": { "meaning": "to buy", "Je": "achète", "Tu": "achètes", "Il/Elle": "achète", "Nous": "achetons", "Vous": "achetez", "Ils/Elles": "achètent" },
-            "Aller": { "meaning": "to go", "Je": "vais", "Tu": "vas", "Il/Elle": "va", "Nous": "allons", "Vous": "allez", "Ils/Elles": "vont" },
-            "Appeler": { "meaning": "to call", "Je": "appelle", "Tu": "appelles", "Il/Elle": "appelle", "Nous": "appelons", "Vous": "appelez", "Ils/Elles": "appellent" },
-            "Assaillir": { "meaning": "to assail", "Je": "assaille", "Tu": "assaillis", "Il/Elle": "assaille", "Nous": "assaillons", "Vous": "assaillissez", "Ils/Elles": "assaillent" },
-            "Avoir": { "meaning": "to have", "Je": "ai", "Tu": "as", "Il/Elle": "a", "Nous": "avons", "Vous": "avez", "Ils/Elles": "ont" },
-            "Battre": { "meaning": "to fight", "Je": "bats", "Tu": "bats", "Il/Elle": "bat", "Nous": "battons", "Vous": "battez", "Ils/Elles": "battent" },
-            "Boire": { "meaning": "to drink", "Je": "bois", "Tu": "bois", "Il/Elle": "boit", "Nous": "buvons", "Vous": "buvez", "Ils/Elles": "boivent" },
-            "Clore": { "meaning": "to close", "Je": "clôt", "Tu": "clôts", "Il/Elle": "clôt", "Nous": "closons", "Vous": "closes", "Ils/Elles": "clôtent" },
-            "Commencer": { "meaning": "to begin", "Je": "commence", "Tu": "commences", "Il/Elle": "commence", "Nous": "commençons", "Vous": "commencez", "Ils/Elles": "commencent" },
-            "Conclure": { "meaning": "to conclude", "Je": "conclus", "Tu": "conclus", "Il/Elle": "conclut", "Nous": "concluons", "Vous": "concluez", "Ils/Elles": "concluent" },
-            "Conduire": { "meaning": "to drive/lead", "Je": "conduis", "Tu": "conduis", "Il/Elle": "conduit", "Nous": "conduisons", "Vous": "conduisez", "Ils/Elles": "conduisent" },
-            "Confire": { "meaning": "to crystallize", "Je": "confits", "Tu": "confits", "Il/Elle": "confits", "Nous": "confisons", "Vous": "confisez", "Ils/Elles": "confisent" },
-            "Connaître": { "meaning": "to know (people/places)", "Je": "connais", "Tu": "connais", "Il/Elle": "connaît", "Nous": "connaissons", "Vous": "connaissez", "Ils/Elles": "connaissent" },
-            "Dire": { "meaning": "to say", "Je": "dis", "Tu": "dis", "Il/Elle": "dit", "Nous": "disons", "Vous": "dites", "Ils/Elles": "disent" },
-            "Être": { "meaning": "to be", "Je": "suis", "Tu": "es", "Il/Elle": "est", "Nous": "sommes", "Vous": "êtes", "Ils/Elles": "sont" },
-            "Prendre": { "meaning": "to take", "Je": "prends", "Tu": "prends", "Il/Elle": "prend", "Nous": "prenons", "Vous": "prenez", "Ils/Elles": "prennent" },
-            "Pouvoir": { "meaning": "to be able to", "Je": "peux", "Tu": "peux", "Il/Elle": "peut", "Nous": "pouvons", "Vous": "pouvez", "Ils/Elles": "peuvent" },
-            "Savoir": { "meaning": "to know (facts/information)", "Je": "sais", "Tu": "sais", "Il/Elle": "sait", "Nous": "savons", "Vous": "savez", "Ils/Elles": "savent" },
-            "Venir": { "meaning": "to come", "Je": "viens", "Tu": "viens", "Il/Elle": "vient", "Nous": "venons", "Vous": "venez", "Ils/Elles": "viennent" }
-       
-    };
+        <!-- Email Field -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your email" required>
 
-    function generateTable(verb, data) {
-        let tableHtml = `
-            <div id="${verb.charAt(0).toUpperCase()}" class="table">
-                <div class="caption">${verb} <span class="meaning">(${data.meaning})</span></div>
-                <div class="row">
-                    <div>Pronoun</div>
-                    <div>Conjugation</div>
-                </div>`;
-        for (const [pronoun, conjugation] of Object.entries(data)) {
-            if (pronoun !== 'meaning') {
-                tableHtml += `
-                    <div class="row">
-                        <div>${pronoun}</div><div>${conjugation}</div>
-                    </div>`;
-            }
-        }
-        tableHtml += `</div>`;
-        return tableHtml;
-    }
+        <!-- Message Field -->
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Your message" required></textarea>
 
- function renderTables() {
-    const container = document.getElementById('tables-container');
-    let htmlContent = '';
-    let letters = new Set();
+        <!-- Anti-Spam Field (optional) -->
+        <input type="hidden" name="_captcha" value="false">
 
-    for (const verb in verbs) {
-        const firstLetter = verb.charAt(0).toUpperCase();
-        letters.add(firstLetter);
-        htmlContent += generateTable(verb, verbs[verb]);
-    }
-    container.innerHTML = htmlContent;
+        <!-- Redirect After Submission (optional) -->
+        <input type="hidden" name="_next" value="https://simritha14.github.io/french/">
 
-    // Render the alphabet links
-    const indexContainer = document.getElementById('index-container');
-    let indexHtml = '';
-    for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
-        if (letters.has(letter)) {
-            indexHtml += `<a href="#${letter}" class="alphabet-link">${letter}</a>`;
-        }
-    }
-    indexContainer.innerHTML = indexHtml;
-
-    // Add event listener to alphabet links
-    const alphabetLinks = document.querySelectorAll('.alphabet-link');
-    alphabetLinks.forEach((link) => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const letter = link.textContent;
-            const tables = document.querySelectorAll(`.table[id^="${letter}"]`);
-            if (tables.length > 0) {
-                tables[0].scrollIntoView({ behavior: 'smooth' });
-                
-            }
-        });
-    });
-
-    // Add event listener to up arrow link
-    const upArrowLink = document.querySelector('.up-arrow');
-    upArrowLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    });
-}
-
-renderTables();
-</script>
+        <!-- Submit Button -->
+        <button type="submit">Send Message</button>
+    </form>
 
 </body>
 </html>
